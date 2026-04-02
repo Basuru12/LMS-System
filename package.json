@@ -1,0 +1,21 @@
+{
+  "name": "lms-system",
+  "version": "1.0.0",
+  "description": "LMS database setup with Mongoose",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node scripts/seed.js",
+    "verify": "node scripts/verify.js"
+  },
+  "keywords": [
+    "mongoose",
+    "mongodb",
+    "lms"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.19.1"
+  }
+}
