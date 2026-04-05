@@ -102,6 +102,10 @@ async function getPaymentsWithRelations() {
     .lean();
 }
 
+async function listTeachers() {
+  return Teacher.find().select("name").sort({ name: 1 }).lean();
+}
+
 module.exports = {
   assertObjectId,
   createStudent,
@@ -112,4 +116,5 @@ module.exports = {
   getCoursesWithRelations,
   getCourseById,
   getPaymentsWithRelations,
+  listTeachers,
 };

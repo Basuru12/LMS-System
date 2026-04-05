@@ -2,15 +2,20 @@ require("dotenv").config();
 
 const path = require("path");
 const express = require("express");
+const mongoose = require("mongoose");
 const { connectDB } = require("./config/db");
 const {
   getPaymentsWithRelations,
   getCoursesWithRelations,
   getCourseById,
+  createCourse,
+  listTeachers,
 } = require("./services/lmsService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(express.json({ limit: "12mb" }));
 
 app.get("/api/courses", async (_req, res) => {
   try {
@@ -43,6 +48,62 @@ app.get("/api/payments", async (_req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to load payments." });
+  }
+});
+
+app.get("/api/teachers", async (_req, res) => {
+  try {
+    const teachers = await listTeachers();
+    res.json(teachers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load teachers." });
+  }
+});
+
+app.post("/api/courses", async (req, res) => {
+  const { courseName, fee, teacher, structure, description, thumbnailUrl } = req.body ?? {};
+
+  if (typeof courseName !== "string" || courseName.trim().length < 2 || courseName.trim().length > 150) {
+    res.status(400).json({ error: "courseName must be a string between 2 and 150 characters." });
+    return;
+  }
+
+  const feeNum = Number(fee);
+  if (!Number.isFinite(feeNum) || feeNum < 0) {
+    res.status(400).json({ error: "fee must be a non-negative number." });
+    return;
+  }
+
+  if (typeof teacher !== "string" || !mongoose.isValidObjectId(teacher)) {
+    res.status(400).json({ error: "teacher must be a valid ObjectId." });
+    return;
+  }
+
+  const payload = {
+    courseName: courseName.trim(),
+    fee: feeNum,
+    teacher,
+    structure: typeof structure === "string" ? structure.trim().slice(0, 5000) : "",
+    description: typeof description === "string" ? description.trim().slice(0, 10000) : "",
+    thumbnailUrl: typeof thumbnailUrl === "string" ? thumbnailUrl.trim() : "",
+  };
+
+  try {
+    const course = await createCourse(payload);
+    res.status(201).json(course);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg === "Teacher does not exist." || msg.startsWith("Invalid teacher ObjectId")) {
+      res.status(400).json({ error: msg });
+      return;
+    }
+    if (err?.name === "ValidationError") {
+      res.status(400).json({ error: msg });
+      return;
+    }
+    console.error(err);
+    res.status(500).json({ error: "Failed to create course." });
   }
 });
 

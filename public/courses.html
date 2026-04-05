@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course List — Edemy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/landing.css" />
+    <link rel="stylesheet" href="/courses.css" />
+  </head>
+  <body class="courses-page">
+    <header class="site-header">
+      <div class="container">
+        <a class="logo-link" href="/" aria-label="Edemy home">
+          <svg
+            class="logo-icon"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            aria-hidden="true"
+          >
+            <circle cx="20" cy="20" r="20" fill="#2563eb" />
+            <path
+              fill="#fff"
+              d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z"
+            />
+          </svg>
+          Edemy
+        </a>
+        <nav class="nav-actions nav-with-pipes" aria-label="Main">
+          <span class="nav-inline">
+            <a href="/add-course.html">Add Courses</a>
+            <span class="nav-sep" aria-hidden="true">|</span>
+            <a href="#">Login</a>
+          </span>
+          <a class="btn-primary" href="#">Create Account</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="courses-main">
+      <div class="container">
+        <div class="courses-page-toolbar">
+          <div class="courses-toolbar-left">
+            <h1 class="courses-page-title">Course List</h1>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="/">Home</a>
+              <span class="breadcrumb-sep" aria-hidden="true">/</span>
+              <span class="breadcrumb-current">Course List</span>
+            </nav>
+          </div>
+          <form
+            class="search-bar course-list-search"
+            id="course-list-search-form"
+            role="search"
+            action="#"
+            method="get"
+          >
+            <label for="course-list-search-input">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="#94a3b8" stroke-width="2" />
+                <path
+                  d="M16 16l5 5"
+                  stroke="#94a3b8"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <input
+                id="course-list-search-input"
+                type="search"
+                name="q"
+                placeholder="Search for courses"
+                autocomplete="off"
+              />
+            </label>
+            <button type="submit" class="btn-primary">Search</button>
+          </form>
+        </div>
+
+        <p
+          id="course-list-status"
+          class="course-status courses-list-status"
+          role="status"
+          aria-live="polite"
+        ></p>
+        <div id="course-list-grid" class="course-list-grid"></div>
+        <div class="courses-load-wrap">
+          <button type="button" id="course-list-load-more" class="btn-load-more" hidden>
+            Load more
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="logo-link" href="/">
+            <svg
+              class="logo-icon"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              aria-hidden="true"
+            >
+              <circle cx="20" cy="20" r="20" fill="#2563eb" />
+              <path fill="#fff" d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z" />
+            </svg>
+            Edemy
+          </a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Helping learners
+            worldwide build skills for the future.
+          </p>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/courses.html">Course List</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Subscribe to our newsletter</h3>
+          <p class="footer-newsletter-lead">
+            The latest news, articles, and resources, sent to your inbox weekly.
+          </p>
+          <form class="newsletter-form" id="newsletter-form" action="#" method="post">
+            <input type="email" name="email" placeholder="Enter your email" required />
+            <button type="submit" class="btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          Copyright 2024 @ Edemy. All Right Reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/courses.js"></script>
+  </body>
+</html>
