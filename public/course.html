@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course — Edemy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/landing.css" />
+    <link rel="stylesheet" href="/course.css" />
+  </head>
+  <body class="course-page">
+    <header class="site-header">
+      <div class="container">
+        <a class="logo-link" href="/" aria-label="Edemy home">
+          <svg
+            class="logo-icon"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            aria-hidden="true"
+          >
+            <circle cx="20" cy="20" r="20" fill="#2563eb" />
+            <path
+              fill="#fff"
+              d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z"
+            />
+          </svg>
+          Edemy
+        </a>
+        <nav class="nav-actions nav-with-pipes" aria-label="Main">
+          <span class="nav-inline">
+            <a href="#">Add Courses</a>
+            <span class="nav-sep" aria-hidden="true">|</span>
+            <a href="#">Login</a>
+          </span>
+          <a class="btn-primary" href="#">Create Account</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="course-main">
+      <div class="container course-layout-wrap">
+        <p id="page-status" class="page-status" role="status" aria-live="polite"></p>
+        <div id="course-root" class="course-layout" hidden>
+          <div class="course-primary">
+            <h1 id="course-title" class="course-title">Course</h1>
+            <p id="course-subtitle" class="course-subtitle"></p>
+            <div class="course-meta-row">
+              <span class="rating-block">
+                <span class="stars" aria-hidden="true">★★★★★</span>
+                <span id="rating-value">4.5</span>
+              </span>
+              <span id="rating-count" class="meta-muted">(122 ratings)</span>
+              <span id="student-count" class="meta-muted"></span>
+            </div>
+            <p class="instructor-line">
+              <a id="instructor-link" class="instructor-link" href="#">Course by Instructor</a>
+            </p>
+
+            <section class="course-section-block" aria-labelledby="structure-heading">
+              <h2 id="structure-heading" class="course-section-title">Course Structure</h2>
+              <p id="structure-summary" class="structure-summary"></p>
+              <div id="accordion" class="accordion"></div>
+            </section>
+
+            <section class="course-section-block" aria-labelledby="desc-heading">
+              <h2 id="desc-heading" class="course-section-title">Course Description</h2>
+              <div id="course-description" class="course-description"></div>
+            </section>
+          </div>
+
+          <aside class="course-sidebar" aria-label="Enrollment">
+            <div class="sidebar-card">
+              <img
+                class="sidebar-thumb"
+                src="/images/course-preview.png"
+                alt=""
+                width="640"
+                height="360"
+              />
+              <div class="sidebar-body">
+                <p class="urgency">
+                  <span aria-hidden="true">🔥</span>
+                  5 days left at this price!
+                </p>
+                <div class="price-row">
+                  <span id="price-current" class="price-current">$10.99</span>
+                </div>
+                <p class="price-was">
+                  <span id="price-list" class="price-strike">$19.99</span>
+                  <span class="price-off">50% off</span>
+                </p>
+                <ul class="sidebar-stats" aria-label="Course stats">
+                  <li>
+                    <span class="stat-icon" aria-hidden="true">★</span>
+                    <span id="stat-rating">4.5</span>
+                  </li>
+                  <li>
+                    <span class="stat-icon" aria-hidden="true">🕐</span>
+                    <span>30 hours</span>
+                  </li>
+                  <li>
+                    <span class="stat-icon" aria-hidden="true">📖</span>
+                    <span>54 lessons</span>
+                  </li>
+                </ul>
+                <a
+                  id="enroll-btn"
+                  class="btn-primary btn-enroll"
+                  href="/payments.html"
+                  >Enroll Now</a
+                >
+                <div class="whats-included">
+                  <h3 class="whats-heading">What&apos;s in the course?</h3>
+                  <ul class="whats-list">
+                    <li>Lifetime access</li>
+                    <li>Step-by-step guidance</li>
+                    <li>Downloadable resources</li>
+                    <li>Quizzes</li>
+                    <li>Certificate of completion</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="logo-link" href="/">
+            <svg
+              class="logo-icon"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              aria-hidden="true"
+            >
+              <circle cx="20" cy="20" r="20" fill="#2563eb" />
+              <path fill="#fff" d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z" />
+            </svg>
+            Edemy
+          </a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Helping learners
+            worldwide build skills for the future.
+          </p>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Subscribe to our newsletter</h3>
+          <p class="footer-newsletter-lead">
+            Get updates on new courses and special offers.
+          </p>
+          <form class="newsletter-form" id="newsletter-form" action="#" method="post">
+            <input type="email" name="email" placeholder="Your email" required />
+            <button type="submit" class="btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          Copyright 2024 @ Edemy. All Right Reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/course.js"></script>
+  </body>
+</html>

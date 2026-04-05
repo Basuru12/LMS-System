@@ -301,6 +301,17 @@ img {
   flex-direction: column;
 }
 
+a.course-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.course-card:hover {
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+  border-color: #cbd5e1;
+}
+
 .course-card-thumb {
   aspect-ratio: 16 / 10;
   background: linear-gradient(135deg, #bfdbfe, #e0f2fe);

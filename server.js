@@ -6,6 +6,7 @@ const { connectDB } = require("./config/db");
 const {
   getPaymentsWithRelations,
   getCoursesWithRelations,
+  getCourseById,
 } = require("./services/lmsService");
 
 const app = express();
@@ -18,6 +19,20 @@ app.get("/api/courses", async (_req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to load courses." });
+  }
+});
+
+app.get("/api/courses/:id", async (req, res) => {
+  try {
+    const course = await getCourseById(req.params.id);
+    if (!course) {
+      res.status(404).json({ error: "Course not found." });
+      return;
+    }
+    res.json(course);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load course." });
   }
 });
 

@@ -84,6 +84,17 @@ async function getCoursesWithRelations() {
     .lean();
 }
 
+async function getCourseById(id) {
+  if (!mongoose.isValidObjectId(id)) {
+    return null;
+  }
+  const course = await Course.findById(id)
+    .populate("teacher")
+    .populate("students")
+    .lean();
+  return course ?? null;
+}
+
 async function getPaymentsWithRelations() {
   return Payment.find()
     .populate("student")
@@ -99,5 +110,6 @@ module.exports = {
   enrollStudent,
   createPayment,
   getCoursesWithRelations,
+  getCourseById,
   getPaymentsWithRelations,
 };

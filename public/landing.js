@@ -68,9 +68,10 @@
     for (const course of list) {
       const title = course.courseName || "Untitled course";
       const instructor = course.teacher?.name ?? "Instructor";
-      const article = document.createElement("article");
-      article.className = "course-card";
-      article.innerHTML = `
+      const link = document.createElement("a");
+      link.className = "course-card";
+      link.href = `/course.html?id=${encodeURIComponent(courseId(course))}`;
+      link.innerHTML = `
         <img class="course-card-thumb" src="${escapeHtml(
           thumbSrc(course)
         )}" alt="" width="400" height="250" loading="lazy" />
@@ -86,7 +87,7 @@
           </div>
         </div>
       `;
-      frag.appendChild(article);
+      frag.appendChild(link);
     }
 
     grid.appendChild(frag);
