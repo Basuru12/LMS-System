@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edemy — Learn on your terms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/landing.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="logo-link" href="/" aria-label="Edemy home">
+          <svg
+            class="logo-icon"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            aria-hidden="true"
+          >
+            <circle cx="20" cy="20" r="20" fill="#2563eb" />
+            <path
+              fill="#fff"
+              d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z"
+            />
+          </svg>
+          Edemy
+        </a>
+        <nav class="nav-actions" aria-label="Main">
+          <a href="#">Add Courses</a>
+          <a href="#">Login</a>
+          <a href="/payments.html">Payments</a>
+          <a class="btn-primary" href="#">Create Account</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="container">
+          <h1 id="hero-heading">
+            Empower your future with the courses designed to
+            <span class="hero-em">fit your choice.</span>
+          </h1>
+          <p class="lead">
+            We bring together world-class instructors, interactive content, and a
+            supportive community to help you achieve your personal and
+            professional goals.
+          </p>
+          <form class="search-bar" id="search-form" role="search" action="#" method="get">
+            <label for="course-search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="#94a3b8" stroke-width="2" />
+                <path d="M16 16l5 5" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <input
+                id="course-search"
+                type="search"
+                name="q"
+                placeholder="Search for courses"
+                autocomplete="off"
+              />
+            </label>
+            <button type="submit" class="btn-primary">Search</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="trusted" aria-label="Trusted by">
+        <div class="container">
+          <p>Trusted by learners from</p>
+          <div class="trusted-logos">
+            <span>Microsoft</span>
+            <span>Walmart</span>
+            <span>Accenture</span>
+            <span>Adobe</span>
+            <span>PayPal</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="courses" aria-labelledby="courses-heading">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="courses-heading">Learn from the best</h2>
+            <p>
+              Discover courses across technology, design, business, and more—taught
+              by instructors who care about your progress.
+            </p>
+          </div>
+          <p id="course-status" class="course-status" role="status" aria-live="polite"></p>
+          <div class="course-grid" id="course-grid"></div>
+          <div class="section-actions">
+            <button type="button" class="btn-outline" id="toggle-courses" hidden>
+              Show all courses
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="testimonials-heading">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="testimonials-heading">Testimonials</h2>
+            <p>
+              Hear from learners who have transformed their skills and careers with
+              our platform.
+            </p>
+          </div>
+          <div class="testimonial-grid">
+            <article class="testimonial-card">
+              <header>
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <h3>Sarah Mitchell</h3>
+                  <p class="role">Product Designer, Northwind</p>
+                </div>
+              </header>
+              <div class="stars-red" aria-label="5 out of 5 stars">★★★★★</div>
+              <p>
+                The courses are practical and well structured. I went from basics to
+                shipping real projects in weeks. The community support made all the
+                difference.
+              </p>
+              <a class="read-more" href="#">Read more</a>
+            </article>
+            <article class="testimonial-card">
+              <header>
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <h3>James Okonkwo</h3>
+                  <p class="role">Software Engineer, Contoso</p>
+                </div>
+              </header>
+              <div class="stars-red" aria-label="5 out of 5 stars">★★★★★</div>
+              <p>
+                Clear explanations and hands-on exercises. I use what I learned every
+                day at work. Worth every minute I invested in the program.
+              </p>
+              <a class="read-more" href="#">Read more</a>
+            </article>
+            <article class="testimonial-card">
+              <header>
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <h3>Elena Vasquez</h3>
+                  <p class="role">Marketing Lead, Fabrikam</p>
+                </div>
+              </header>
+              <div class="stars-red" aria-label="5 out of 5 stars">★★★★★</div>
+              <p>
+                Flexible pacing fit my schedule. The instructors respond to
+                questions quickly, and the content stays up to date with industry
+                trends.
+              </p>
+              <a class="read-more" href="#">Read more</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-band" aria-labelledby="cta-heading">
+        <div class="container">
+          <h2 id="cta-heading">Learn anything, anytime, anywhere</h2>
+          <p class="sub">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation.
+          </p>
+          <div class="cta-actions">
+            <a class="btn-primary" href="#">Get started</a>
+            <a class="link-arrow" href="#">
+              Learn more
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="logo-link" href="/">
+            <svg
+              class="logo-icon"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              aria-hidden="true"
+            >
+              <circle cx="20" cy="20" r="20" fill="#2563eb" />
+              <path fill="#fff" d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z" />
+            </svg>
+            Edemy
+          </a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Helping learners
+            worldwide build skills for the future.
+          </p>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="/payments.html">Payments</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Subscribe to our newsletter</h3>
+          <p style="font-size: 0.875rem; margin: 0 0 0.5rem">
+            Get updates on new courses and special offers.
+          </p>
+          <form class="newsletter-form" id="newsletter-form" action="#" method="post">
+            <input type="email" name="email" placeholder="Your email" required />
+            <button type="submit" class="btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          Copyright 2024 @ Edemy. All Right Reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/landing.js"></script>
+  </body>
+</html>

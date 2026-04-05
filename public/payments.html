@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payments — LMS</title>
+    <link rel="stylesheet" href="/payments.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <a class="back-link" href="/">← Back to home</a>
+      <section class="card" aria-labelledby="payments-heading">
+        <h1 id="payments-heading">Payments</h1>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <div class="table-wrap">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th scope="col">Student</th>
+                <th scope="col">Course</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Paid</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="/payments.js"></script>
+  </body>
+</html>
