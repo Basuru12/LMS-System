@@ -45,7 +45,46 @@ async function enrollStudent({ courseId, studentId }) {
   }
 
   course.students.push(student._id);
+  course.enrollments.push({ student: student._id, enrolledAt: new Date() });
   return course.save();
+}
+
+async function getEnrollmentRows() {
+  const courses = await Course.find()
+    .populate({ path: "enrollments.student", select: "name" })
+    .populate("students", "name")
+    .select("courseName enrollments students createdAt updatedAt")
+    .lean();
+
+  const rows = [];
+  for (const c of courses) {
+    if (Array.isArray(c.enrollments) && c.enrollments.length > 0) {
+      for (const e of c.enrollments) {
+        const st = e.student;
+        if (!st || !st.name) continue;
+        rows.push({
+          studentId: String(st._id),
+          studentName: st.name,
+          courseTitle: c.courseName,
+          enrolledAt: e.enrolledAt || c.updatedAt,
+        });
+      }
+    } else if (Array.isArray(c.students) && c.students.length > 0) {
+      const fallbackDate = c.updatedAt || c.createdAt;
+      for (const st of c.students) {
+        if (!st?.name) continue;
+        rows.push({
+          studentId: String(st._id),
+          studentName: st.name,
+          courseTitle: c.courseName,
+          enrolledAt: fallbackDate,
+        });
+      }
+    }
+  }
+
+  rows.sort((a, b) => new Date(b.enrolledAt) - new Date(a.enrolledAt));
+  return rows;
 }
 
 async function createPayment({ student, course, amount, paidAt }) {
@@ -117,4 +156,5 @@ module.exports = {
   getCourseById,
   getPaymentsWithRelations,
   listTeachers,
+  getEnrollmentRows,
 };

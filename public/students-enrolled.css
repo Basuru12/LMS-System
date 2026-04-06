@@ -1,0 +1,96 @@
+.dash-main-wide {
+  max-width: none;
+}
+
+.enrollments-status {
+  margin: 0 0 1rem;
+  min-height: 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--text-muted, #64748b);
+}
+
+.enrollments-status.is-error {
+  color: #b91c1c;
+}
+
+.enrollments-table-wrap {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius, 8px);
+  background: #fff;
+  overflow-x: auto;
+}
+
+.enrollments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.enrollments-table thead th {
+  text-align: left;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  color: var(--text, #334155);
+  border-bottom: 1px solid var(--border, #e2e8f0);
+  white-space: nowrap;
+}
+
+.enrollments-table tbody td {
+  padding: 1rem 1.25rem;
+  color: var(--text, #0f172a);
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.enrollments-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.enrollments-table .col-num {
+  width: 3rem;
+  color: var(--text-muted, #64748b);
+  font-weight: 500;
+}
+
+.enrollments-table .cell-student {
+  min-width: 12rem;
+}
+
+.student-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.student-avatar {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  letter-spacing: 0.02em;
+}
+
+.enrollments-table .cell-course {
+  min-width: 14rem;
+  font-weight: 500;
+  color: var(--text, #1e293b);
+}
+
+.enrollments-table .cell-date {
+  white-space: nowrap;
+  color: var(--text-muted, #64748b);
+}
+
+.enrollments-empty {
+  padding: 2.5rem 1.25rem;
+  text-align: center;
+  color: var(--text-muted, #64748b);
+  font-size: 0.9375rem;
+}

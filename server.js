@@ -10,6 +10,7 @@ const {
   getCourseById,
   createCourse,
   listTeachers,
+  getEnrollmentRows,
 } = require("./services/lmsService");
 
 const app = express();
@@ -58,6 +59,16 @@ app.get("/api/teachers", async (_req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to load teachers." });
+  }
+});
+
+app.get("/api/enrollments", async (_req, res) => {
+  try {
+    const rows = await getEnrollmentRows();
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load enrollments." });
   }
 });
 

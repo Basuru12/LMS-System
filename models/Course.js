@@ -41,6 +41,19 @@ const courseSchema = new mongoose.Schema(
         ref: "Student",
       },
     ],
+    enrollments: [
+      {
+        student: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Student",
+          required: true,
+        },
+        enrolledAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
