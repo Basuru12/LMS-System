@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { connectDB, disconnectDB } = require("../config/db");
-const { Student, Teacher, Course, Payment } = require("../models");
+const { Student, Teacher, Course, Enrollment, Payment } = require("../models");
 const {
   getCoursesWithRelations,
   getPaymentsWithRelations,
@@ -10,11 +10,12 @@ const {
 async function verify() {
   await connectDB();
 
-  const [studentCount, teacherCount, courseCount, paymentCount] =
+  const [studentCount, teacherCount, courseCount, enrollmentCount, paymentCount] =
     await Promise.all([
       Student.countDocuments(),
       Teacher.countDocuments(),
       Course.countDocuments(),
+      Enrollment.countDocuments(),
       Payment.countDocuments(),
     ]);
 
@@ -27,6 +28,7 @@ async function verify() {
     students: studentCount,
     teachers: teacherCount,
     courses: courseCount,
+    enrollments: enrollmentCount,
     payments: paymentCount,
   });
 

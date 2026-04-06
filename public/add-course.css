@@ -373,6 +373,17 @@
 }
 
 @media (max-width: 768px) {
+  .dash-topbar-inner {
+    padding: 0 1rem;
+  }
+
+  .dash-user-greeting {
+    max-width: 9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .dash-shell {
     flex-direction: column;
   }
@@ -386,9 +397,80 @@
   .dash-nav {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+
+  .dash-nav-link {
+    flex: 1 1 calc(50% - 0.5rem);
+    justify-content: center;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .dash-nav-link.is-active {
+    border-bottom-color: #7c3aed;
   }
 
   .dash-main {
     padding: 1.25rem 1rem 2rem;
+  }
+
+  .dash-footer {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .dash-topbar-inner {
+    min-height: auto;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .dash-user-trigger {
+    padding: 0.3rem 0.45rem;
+  }
+
+  .dash-user-greeting {
+    font-size: 0.875rem;
+    max-width: 6.25rem;
+  }
+
+  .dash-user-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dash-nav-link {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+
+  .form-field-price {
+    flex: 1 1 100%;
+  }
+
+  .form-field-price input {
+    max-width: 100%;
+  }
+
+  .form-field-thumb {
+    min-width: 0;
+  }
+
+  .thumb-preview {
+    width: 100%;
+    max-width: 11rem;
+    height: auto;
+  }
+
+  .btn-add-course {
+    width: 100%;
+  }
+
+  .dash-footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

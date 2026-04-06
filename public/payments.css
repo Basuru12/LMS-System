@@ -92,3 +92,27 @@ h1 {
 .payments-table.is-hidden {
   display: none;
 }
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 1.25rem 0.9rem 2rem;
+  }
+
+  .card {
+    padding: 1.1rem 0.85rem;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .payments-table {
+    font-size: 0.875rem;
+  }
+
+  .payments-table th,
+  .payments-table td {
+    padding: 0.55rem 0.5rem;
+  }
+}

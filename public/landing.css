@@ -584,6 +584,35 @@ a.course-card:hover {
 }
 
 @media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .site-header .container {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    min-height: auto;
+  }
+
+  .nav-actions {
+    width: 100%;
+    gap: 0.5rem 0.85rem;
+  }
+
+  .nav-actions .btn-primary {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 2.5rem 0 3rem;
+  }
+
+  .section {
+    padding: 2.75rem 0;
+  }
+
   .search-bar {
     flex-direction: column;
     border-radius: var(--radius);
@@ -592,5 +621,9 @@ a.course-card:hover {
   .search-bar .btn-primary {
     border-radius: 0 0 var(--radius) var(--radius);
     width: 100%;
+  }
+
+  .footer-grid {
+    gap: 1.5rem;
   }
 }

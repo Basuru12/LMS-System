@@ -80,9 +80,40 @@
 }
 
 @media (max-width: 640px) {
+  .nav-with-pipes {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .nav-inline {
+    flex-wrap: wrap;
+  }
+
   .course-list-search.search-bar {
     max-width: 100%;
     width: 100%;
+  }
+
+  .courses-page-toolbar {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .courses-list-status {
+    text-align: center;
+  }
+
+  .btn-load-more {
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .btn-load-more::before,
+  .btn-load-more::after {
+    display: none;
   }
 }
 

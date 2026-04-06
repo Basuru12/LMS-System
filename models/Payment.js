@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema(
   {
-    student: {
+    enrollment: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-      required: true,
-      index: true,
-    },
-    course: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
+      ref: "Enrollment",
       required: true,
       index: true,
     },
@@ -28,6 +22,6 @@ const paymentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-paymentSchema.index({ student: 1, course: 1, paidAt: -1 });
+paymentSchema.index({ enrollment: 1, paidAt: -1 });
 
 module.exports = mongoose.model("Payment", paymentSchema);

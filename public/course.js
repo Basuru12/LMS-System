@@ -180,7 +180,11 @@
     titleEl.textContent = name;
     subtitleEl.textContent = MOCK_SUBTITLE;
 
-    const students = Array.isArray(course.students) ? course.students.length : 0;
+    const students = Number.isFinite(course.enrollmentCount)
+      ? course.enrollmentCount
+      : Array.isArray(course.students)
+        ? course.students.length
+        : 0;
     studentCountEl.textContent =
       students === 1 ? "1 student" : `${students} students`;
 

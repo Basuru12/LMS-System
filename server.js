@@ -11,6 +11,7 @@ const {
   createCourse,
   listTeachers,
   getEnrollmentRows,
+  getInstructorDashboard,
 } = require("./services/lmsService");
 
 const app = express();
@@ -69,6 +70,17 @@ app.get("/api/enrollments", async (_req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to load enrollments." });
+  }
+});
+
+app.get("/api/instructor-dashboard", async (req, res) => {
+  try {
+    const teacherId = typeof req.query.teacherId === "string" ? req.query.teacherId : "";
+    const dashboard = await getInstructorDashboard({ teacherId });
+    res.json(dashboard);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load instructor dashboard." });
   }
 });
 

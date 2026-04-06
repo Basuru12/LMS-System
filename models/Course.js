@@ -35,30 +35,10 @@ const courseSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    students: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
-      },
-    ],
-    enrollments: [
-      {
-        student: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Student",
-          required: true,
-        },
-        enrolledAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );
 
 courseSchema.index({ teacher: 1, courseName: 1 });
-courseSchema.index({ students: 1 });
 
 module.exports = mongoose.model("Course", courseSchema);

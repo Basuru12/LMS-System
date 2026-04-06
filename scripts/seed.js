@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { connectDB, disconnectDB } = require("../config/db");
-const { Student, Teacher, Course, Payment } = require("../models");
+const { Student, Teacher, Course, Enrollment, Payment } = require("../models");
 const {
   createStudent,
   createTeacher,
@@ -15,6 +15,7 @@ async function resetCollections() {
     Student.deleteMany({}),
     Teacher.deleteMany({}),
     Course.deleteMany({}),
+    Enrollment.deleteMany({}),
     Payment.deleteMany({}),
   ]);
 }

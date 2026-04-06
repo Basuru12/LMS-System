@@ -94,3 +94,29 @@
   color: var(--text-muted, #64748b);
   font-size: 0.9375rem;
 }
+
+@media (max-width: 640px) {
+  .enrollments-table thead th,
+  .enrollments-table tbody td {
+    padding: 0.75rem 0.65rem;
+    font-size: 0.875rem;
+  }
+
+  .enrollments-table .cell-student {
+    min-width: 10rem;
+  }
+
+  .enrollments-table .cell-course {
+    min-width: 11rem;
+  }
+
+  .student-cell {
+    gap: 0.5rem;
+  }
+
+  .student-avatar {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 0.625rem;
+  }
+}

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Course — Edemy</title>
+    <title>Dashboard - Edemy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="/landing.css" />
     <link rel="stylesheet" href="/add-course.css" />
+    <link rel="stylesheet" href="/dashboard.css" />
   </head>
   <body class="dashboard-page">
     <header class="dash-topbar">
@@ -54,7 +55,7 @@
     <div class="dash-shell">
       <aside class="dash-sidebar" aria-label="Dashboard navigation">
         <nav class="dash-nav">
-          <a class="dash-nav-link" href="/dashboard.html">
+          <a class="dash-nav-link is-active" href="/dashboard.html" aria-current="page">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M4 10.5L12 4l8 6.5V20a1 1 0 01-1 1h-5v-6H10v6H5a1 1 0 01-1-1v-9.5z"
@@ -65,7 +66,7 @@
             </svg>
             Dashboard
           </a>
-          <a class="dash-nav-link is-active" href="/add-course.html" aria-current="page">
+          <a class="dash-nav-link" href="/add-course.html">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" />
               <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -95,79 +96,50 @@
       </aside>
 
       <div class="dash-main-column">
-        <main class="dash-main">
-          <h1 class="dash-page-title">Add Course</h1>
-          <p id="add-course-status" class="add-course-status" role="status" aria-live="polite"></p>
-          <form id="add-course-form" class="add-course-form" novalidate>
-            <div class="form-field">
-              <label for="course-title">Course Title</label>
-              <input id="course-title" name="courseName" type="text" placeholder="Type here" required maxlength="150" />
-            </div>
-            <div class="form-field">
-              <label for="course-headings">Course Headings</label>
-              <input id="course-headings" name="structure" type="text" placeholder="Type here" />
-            </div>
-            <div class="form-field">
-              <label for="course-description">Course Description</label>
-              <textarea id="course-description" name="description" rows="5" placeholder="Type here"></textarea>
-            </div>
-            <div class="form-field">
-              <label for="course-teacher">Instructor</label>
-              <select id="course-teacher" name="teacher" required aria-describedby="teacher-hint">
-                <option value="">Select a teacher</option>
-              </select>
-              <span id="teacher-hint" class="field-hint">Required to create the course in the database.</span>
-            </div>
-            <div class="form-row-price-thumb">
-              <div class="form-field form-field-price">
-                <label for="course-price">Course Price</label>
-                <input id="course-price" name="fee" type="number" placeholder="0" min="0" step="0.01" required />
+        <main class="dash-main dash-main-wide">
+          <h1 class="dash-page-title">Dashboard</h1>
+          <p id="dashboard-status" class="dashboard-status" role="status" aria-live="polite"></p>
+
+          <section class="dashboard-stats" aria-label="Instructor summary">
+            <article class="metric-card">
+              <div class="metric-icon" aria-hidden="true">👥</div>
+              <div>
+                <p class="metric-value" id="metric-enrollments">0</p>
+                <p class="metric-label">Total Enrollments</p>
               </div>
-              <div class="form-field form-field-thumb">
-                <span class="label-text" id="thumb-label">Course Thumbnail</span>
-                <div class="thumb-row">
-                  <input
-                    type="file"
-                    id="course-thumbnail-file"
-                    name="thumbnailFile"
-                    accept="image/*"
-                    class="visually-hidden"
-                    aria-labelledby="thumb-label"
-                  />
-                  <button type="button" class="btn-thumb-upload" id="thumb-upload-btn" aria-label="Upload thumbnail">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path
-                        d="M12 16V8m0 0l-3 3m3-3l3 3M4 16.8V19a1 1 0 001 1h14a1 1 0 001-1v-2.2"
-                        stroke="#fff"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M4 12.8l4.5-5a2 2 0 012.8 0L16 14l2.2-2.2a2 2 0 012.8 0L22 14"
-                        stroke="#fff"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <div class="thumb-preview-wrap">
-                    <img id="thumb-preview" class="thumb-preview" alt="" width="120" height="72" hidden />
-                  </div>
-                </div>
-                <label class="thumb-url-label" for="course-thumbnail-url">Or image URL</label>
-                <input
-                  id="course-thumbnail-url"
-                  name="thumbnailUrl"
-                  type="url"
-                  placeholder="https://…"
-                  class="thumb-url-input"
-                />
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon" aria-hidden="true">📚</div>
+              <div>
+                <p class="metric-value" id="metric-courses">0</p>
+                <p class="metric-label">Total Courses</p>
               </div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon" aria-hidden="true">$</div>
+              <div>
+                <p class="metric-value" id="metric-earnings">$0</p>
+                <p class="metric-label">Total Earnings</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="dashboard-table-section">
+            <h2 class="dashboard-section-title">Latest Enrollments</h2>
+            <div class="dashboard-table-wrap">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-num">#</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Course Title</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-enrollments-tbody"></tbody>
+              </table>
             </div>
-            <button type="submit" class="btn-add-course">ADD</button>
-          </form>
+          </section>
         </main>
 
         <footer class="dash-footer">
@@ -184,14 +156,14 @@
             </div>
             <div class="dash-footer-social" aria-label="Social links">
               <a class="social-circle" href="#" aria-label="Facebook">f</a>
-              <a class="social-circle" href="#" aria-label="Twitter">𝕏</a>
-              <a class="social-circle" href="#" aria-label="Instagram">◎</a>
+              <a class="social-circle" href="#" aria-label="Twitter">X</a>
+              <a class="social-circle" href="#" aria-label="Instagram">O</a>
             </div>
           </div>
         </footer>
       </div>
     </div>
 
-    <script src="/add-course.js"></script>
+    <script src="/dashboard.js"></script>
   </body>
 </html>
