@@ -43,6 +43,7 @@
     statusEl.classList.toggle("is-error", Boolean(isError));
   }
 
+
   function applyFilter(query) {
     const q = (query || "").trim().toLowerCase();
     if (!q) {

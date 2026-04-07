@@ -1,4 +1,5 @@
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 
 const { connectDB, disconnectDB } = require("../config/db");
 const { Student, Teacher, Course, Enrollment, Payment } = require("../models");
@@ -23,10 +24,22 @@ async function resetCollections() {
 async function seed() {
   await connectDB();
   await resetCollections();
+  const defaultPassword = process.env.SEED_TEACHER_PASSWORD || "Teacher@123";
+  const passwordHash = await bcrypt.hash(defaultPassword, 10);
 
   const [teacherA, teacherB] = await Promise.all([
-    createTeacher({ name: "Asha Verma", earnings: 0 }),
-    createTeacher({ name: "Ravi Nair", earnings: 0 }),
+    createTeacher({
+      name: "Asha Verma",
+      username: "asha.verma",
+      passwordHash,
+      earnings: 0,
+    }),
+    createTeacher({
+      name: "Ravi Nair",
+      username: "ravi.nair",
+      passwordHash,
+      earnings: 0,
+    }),
   ]);
 
   const [studentA, studentB, studentC] = await Promise.all([
@@ -78,6 +91,9 @@ async function seed() {
   ]);
 
   console.log("Seed complete.");
+  console.log("Teacher login credentials:");
+  console.log(`- asha.verma / ${defaultPassword}`);
+  console.log(`- ravi.nair / ${defaultPassword}`);
   await disconnectDB();
 }
 

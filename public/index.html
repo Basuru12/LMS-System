@@ -32,11 +32,11 @@
           Edemy
         </a>
         <nav class="nav-actions" aria-label="Main">
-          <a href="/add-course.html">Add Courses</a>
-          <a href="#">Login</a>
-          <a href="/courses.html">Course List</a>
-          <a href="/payments.html">Payments</a>
-          <a class="btn-primary" href="#">Create Account</a>
+          <a href="/add-course.html" id="add-courses-link" hidden>Add Courses</a>
+          <a href="/login.html" id="login-link">Login</a>
+          <a href="/courses.html" id="course-list-link" hidden>Course List</a>
+          <a href="/payments.html" id="payments-link" hidden>Payments</a>
+          <a class="btn-primary" href="/login.html" id="account-cta">Create Account</a>
         </nav>
       </div>
     </header>
@@ -128,7 +128,6 @@
                 shipping real projects in weeks. The community support made all the
                 difference.
               </p>
-              <a class="read-more" href="#">Read more</a>
             </article>
             <article class="testimonial-card">
               <header>
@@ -143,7 +142,6 @@
                 Clear explanations and hands-on exercises. I use what I learned every
                 day at work. Worth every minute I invested in the program.
               </p>
-              <a class="read-more" href="#">Read more</a>
             </article>
             <article class="testimonial-card">
               <header>
@@ -159,7 +157,6 @@
                 questions quickly, and the content stays up to date with industry
                 trends.
               </p>
-              <a class="read-more" href="#">Read more</a>
             </article>
           </div>
         </div>
@@ -169,13 +166,13 @@
         <div class="container">
           <h2 id="cta-heading">Learn anything, anytime, anywhere</h2>
           <p class="sub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation.
+            Browse courses, learn at your own pace, and track your progress in one place.
+            Teachers can publish content and manage enrollments—learners get clear paths
+            from first lesson to finished project.
           </p>
           <div class="cta-actions">
-            <a class="btn-primary" href="#">Get started</a>
-            <a class="link-arrow" href="#">
+            <a class="btn-primary" href="/login.html">Get started</a>
+            <a class="link-arrow" href="/courses.html">
               Learn more
               <span aria-hidden="true">→</span>
             </a>
@@ -201,8 +198,8 @@
             Edemy
           </a>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Helping learners
-            worldwide build skills for the future.
+            Edemy connects learners with quality courses and gives instructors tools to
+            teach, enroll students, and grow—built for real skills, not filler pages.
           </p>
         </div>
         <div>
@@ -234,6 +231,7 @@
       </div>
     </footer>
 
+    <script src="/auth-nav.js"></script>
     <script src="/landing.js"></script>
   </body>
 </html>

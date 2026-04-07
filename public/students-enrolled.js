@@ -3,6 +3,8 @@
   const dropdown = document.getElementById("user-menu-dropdown");
   const tbody = document.getElementById("enrollments-tbody");
   const statusEl = document.getElementById("enrollments-status");
+  const greetingEl = document.querySelector(".dash-user-greeting");
+  const logoutLink = dropdown?.querySelector('a[role="menuitem"]:last-child') ?? null;
 
   function closeUserMenu() {
     if (!dropdown || !trigger) return;
@@ -96,10 +98,32 @@
       .replace(/"/g, "&quot;");
   }
 
+  async function loadCurrentTeacher() {
+    try {
+      const res = await fetch("/api/teacher/me", { credentials: "same-origin" });
+      if (!res.ok) {
+        window.location.href = "/login.html";
+        return null;
+      }
+      const data = await res.json();
+      if (greetingEl && data?.teacher?.name) {
+        greetingEl.textContent = `Hi ${data.teacher.name}`;
+      }
+      return data?.teacher ?? null;
+    } catch {
+      window.location.href = "/login.html";
+      return null;
+    }
+  }
+
   async function load() {
     setStatus("Loading…");
     try {
-      const res = await fetch("/api/enrollments");
+      const res = await fetch("/api/enrollments", { credentials: "same-origin" });
+      if (res.status === 401) {
+        window.location.href = "/login.html";
+        return;
+      }
       if (!res.ok) throw new Error("Request failed");
       const rows = await res.json();
       if (!Array.isArray(rows)) throw new Error("Invalid response");
@@ -114,5 +138,23 @@
     }
   }
 
-  load();
+  if (logoutLink) {
+    logoutLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await fetch("/api/teacher/logout", {
+          method: "POST",
+          credentials: "same-origin",
+        });
+      } finally {
+        window.location.href = "/login.html";
+      }
+    });
+  }
+
+  (async function init() {
+    const teacher = await loadCurrentTeacher();
+    if (!teacher) return;
+    load();
+  })();
 })();

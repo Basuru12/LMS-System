@@ -6,6 +6,8 @@
   const enrollmentsMetric = document.getElementById("metric-enrollments");
   const coursesMetric = document.getElementById("metric-courses");
   const earningsMetric = document.getElementById("metric-earnings");
+  const greetingEl = document.querySelector(".dash-user-greeting");
+  const logoutLink = dropdown?.querySelector('a[role="menuitem"]:last-child') ?? null;
 
   function setStatus(text, kind) {
     if (!statusEl) return;
@@ -110,10 +112,32 @@
     });
   }
 
+  async function loadCurrentTeacher() {
+    try {
+      const res = await fetch("/api/teacher/me", { credentials: "same-origin" });
+      if (!res.ok) {
+        window.location.href = "/login.html";
+        return null;
+      }
+      const data = await res.json();
+      if (greetingEl && data?.teacher?.name) {
+        greetingEl.textContent = `Hi ${data.teacher.name}`;
+      }
+      return data?.teacher ?? null;
+    } catch {
+      window.location.href = "/login.html";
+      return null;
+    }
+  }
+
   async function loadDashboard() {
     setStatus("Loading...");
     try {
       const res = await fetch("/api/instructor-dashboard");
+      if (res.status === 401) {
+        window.location.href = "/login.html";
+        return;
+      }
       if (!res.ok) throw new Error("Request failed");
       const data = await res.json();
       renderMetrics(data?.summary ?? {});
@@ -126,5 +150,23 @@
     }
   }
 
-  loadDashboard();
+  if (logoutLink) {
+    logoutLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await fetch("/api/teacher/logout", {
+          method: "POST",
+          credentials: "same-origin",
+        });
+      } finally {
+        window.location.href = "/login.html";
+      }
+    });
+  }
+
+  (async function init() {
+    const teacher = await loadCurrentTeacher();
+    if (!teacher) return;
+    loadDashboard();
+  })();
 })();

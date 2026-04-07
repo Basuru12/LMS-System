@@ -54,7 +54,11 @@
     table.classList.remove("is-hidden");
 
     try {
-      const res = await fetch("/api/payments");
+      const res = await fetch("/api/payments", { credentials: "same-origin" });
+      if (res.status === 401) {
+        window.location.href = "/login.html";
+        return;
+      }
       const data = await res.json();
 
       if (!res.ok) {

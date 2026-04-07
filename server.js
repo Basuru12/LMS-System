@@ -3,7 +3,11 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
 const { connectDB } = require("./config/db");
+const { Teacher } = require("./models");
 const {
   getPaymentsWithRelations,
   getCoursesWithRelations,
@@ -16,8 +20,108 @@ const {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const SESSION_SECRET = process.env.SESSION_SECRET || "dev-session-secret";
 
+app.use(cookieParser());
 app.use(express.json({ limit: "12mb" }));
+app.use(
+  session({
+    name: "lms.sid",
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 8,
+    },
+  })
+);
+
+function requireTeacherAuth(req, res, next) {
+  const teacherId = req.session?.teacherId;
+  if (!teacherId || !mongoose.isValidObjectId(teacherId)) {
+    res.status(401).json({ error: "Unauthorized. Please login as a teacher." });
+    return;
+  }
+  next();
+}
+
+function cleanUsername(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+app.post("/api/teacher/login", async (req, res) => {
+  const username = cleanUsername(req.body?.username);
+  const password = typeof req.body?.password === "string" ? req.body.password : "";
+
+  if (!username || !password) {
+    res.status(400).json({ error: "username and password are required." });
+    return;
+  }
+
+  try {
+    const teacher = await Teacher.findOne({ username }).select("_id name username passwordHash").lean();
+    if (!teacher || !teacher.passwordHash) {
+      res.status(401).json({ error: "Invalid username or password." });
+      return;
+    }
+
+    const isValid = await bcrypt.compare(password, teacher.passwordHash);
+    if (!isValid) {
+      res.status(401).json({ error: "Invalid username or password." });
+      return;
+    }
+
+    req.session.teacherId = String(teacher._id);
+    req.session.teacherName = teacher.name;
+    res.json({
+      teacher: {
+        id: String(teacher._id),
+        name: teacher.name,
+        username: teacher.username,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Login failed." });
+  }
+});
+
+app.get("/api/teacher/me", async (req, res) => {
+  const teacherId = req.session?.teacherId;
+  if (!teacherId || !mongoose.isValidObjectId(teacherId)) {
+    res.status(401).json({ error: "Not authenticated." });
+    return;
+  }
+
+  try {
+    const teacher = await Teacher.findById(teacherId).select("_id name username").lean();
+    if (!teacher) {
+      req.session.destroy(() => {});
+      res.status(401).json({ error: "Not authenticated." });
+      return;
+    }
+
+    res.json({
+      teacher: {
+        id: String(teacher._id),
+        name: teacher.name,
+        username: teacher.username,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load current teacher." });
+  }
+});
+
+app.post("/api/teacher/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie("lms.sid");
+    res.json({ ok: true });
+  });
+});
 
 app.get("/api/courses", async (_req, res) => {
   try {
@@ -43,7 +147,7 @@ app.get("/api/courses/:id", async (req, res) => {
   }
 });
 
-app.get("/api/payments", async (_req, res) => {
+app.get("/api/payments", requireTeacherAuth, async (_req, res) => {
   try {
     const payments = await getPaymentsWithRelations();
     res.json(payments);
@@ -63,7 +167,7 @@ app.get("/api/teachers", async (_req, res) => {
   }
 });
 
-app.get("/api/enrollments", async (_req, res) => {
+app.get("/api/enrollments", requireTeacherAuth, async (_req, res) => {
   try {
     const rows = await getEnrollmentRows();
     res.json(rows);
@@ -73,10 +177,9 @@ app.get("/api/enrollments", async (_req, res) => {
   }
 });
 
-app.get("/api/instructor-dashboard", async (req, res) => {
+app.get("/api/instructor-dashboard", requireTeacherAuth, async (req, res) => {
   try {
-    const teacherId = typeof req.query.teacherId === "string" ? req.query.teacherId : "";
-    const dashboard = await getInstructorDashboard({ teacherId });
+    const dashboard = await getInstructorDashboard({ teacherId: req.session.teacherId });
     res.json(dashboard);
   } catch (err) {
     console.error(err);
@@ -84,8 +187,9 @@ app.get("/api/instructor-dashboard", async (req, res) => {
   }
 });
 
-app.post("/api/courses", async (req, res) => {
-  const { courseName, fee, teacher, structure, description, thumbnailUrl } = req.body ?? {};
+app.post("/api/courses", requireTeacherAuth, async (req, res) => {
+  const { courseName, fee, structure, description, thumbnailUrl } = req.body ?? {};
+  const teacher = req.session.teacherId;
 
   if (typeof courseName !== "string" || courseName.trim().length < 2 || courseName.trim().length > 150) {
     res.status(400).json({ error: "courseName must be a string between 2 and 150 characters." });
@@ -95,11 +199,6 @@ app.post("/api/courses", async (req, res) => {
   const feeNum = Number(fee);
   if (!Number.isFinite(feeNum) || feeNum < 0) {
     res.status(400).json({ error: "fee must be a non-negative number." });
-    return;
-  }
-
-  if (typeof teacher !== "string" || !mongoose.isValidObjectId(teacher)) {
-    res.status(400).json({ error: "teacher must be a valid ObjectId." });
     return;
   }
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Login — Edemy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/landing.css" />
+    <link rel="stylesheet" href="/login.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-main">
+      <section class="login-card" aria-labelledby="login-heading">
+        <a class="logo-link login-logo" href="/" aria-label="Edemy home">
+          <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="20" fill="#2563eb" />
+            <path fill="#fff" d="M22 10 L14 22 h5l-1 8 10-14h-6l2-6z" />
+          </svg>
+          Edemy
+        </a>
+        <h1 id="login-heading">Teacher Login</h1>
+        <p class="login-lead">Sign in with your teacher username and password.</p>
+
+        <p id="login-status" class="login-status" role="status" aria-live="polite"></p>
+
+        <form id="teacher-login-form" class="login-form" novalidate>
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required />
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <button class="btn-primary login-btn" type="submit">Login</button>
+        </form>
+      </section>
+    </main>
+    <script src="/login.js"></script>
+  </body>
+</html>

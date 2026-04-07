@@ -34,11 +34,15 @@
         </a>
         <nav class="nav-actions nav-with-pipes" aria-label="Main">
           <span class="nav-inline">
-            <a href="/add-course.html">Add Courses</a>
-            <span class="nav-sep" aria-hidden="true">|</span>
-            <a href="#">Login</a>
+            <a href="/add-course.html" id="add-courses-link" hidden>Add Courses</a>
+            <span class="nav-sep" aria-hidden="true" id="nav-sep-1" hidden>|</span>
+            <a href="/login.html" id="login-link">Login</a>
+            <span class="nav-sep" aria-hidden="true" id="nav-sep-2" hidden>|</span>
+            <a href="/courses.html" id="course-list-link" hidden>Course List</a>
+            <span class="nav-sep" aria-hidden="true" id="nav-sep-3" hidden>|</span>
+            <a href="/payments.html" id="payments-link" hidden>Payments</a>
           </span>
-          <a class="btn-primary" href="#">Create Account</a>
+          <a class="btn-primary" href="/login.html" id="account-cta">Create Account</a>
         </nav>
       </div>
     </header>
@@ -115,8 +119,8 @@
             Edemy
           </a>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Helping learners
-            worldwide build skills for the future.
+            Edemy connects learners with quality courses and gives instructors tools to
+            teach, enroll students, and grow—built for real skills, not filler pages.
           </p>
         </div>
         <div>
@@ -147,6 +151,7 @@
       </div>
     </footer>
 
+    <script src="/auth-nav.js"></script>
     <script src="/courses.js"></script>
   </body>
 </html>

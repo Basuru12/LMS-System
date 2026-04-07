@@ -8,8 +8,11 @@
   const thumbBtn = document.getElementById("thumb-upload-btn");
   const thumbPreview = document.getElementById("thumb-preview");
   const thumbUrlInput = document.getElementById("course-thumbnail-url");
+  const greetingEl = document.querySelector(".dash-user-greeting");
+  const logoutLink = dropdown?.querySelector('a[role="menuitem"]:last-child') ?? null;
 
   let thumbnailDataUrl = "";
+  let currentTeacher = null;
 
   function setStatus(text, kind) {
     if (!statusEl) return;
@@ -77,33 +80,42 @@
     });
   }
 
-  async function loadTeachers() {
+  async function loadCurrentTeacher() {
     if (!teacherSelect) return;
     try {
-      const res = await fetch("/api/teachers");
+      const res = await fetch("/api/teacher/me", { credentials: "same-origin" });
       const data = await res.json();
       if (!res.ok) {
-        const msg = typeof data?.error === "string" ? data.error : "Could not load teachers.";
+        if (res.status === 401) {
+          window.location.href = "/login.html";
+          return;
+        }
+        const msg = typeof data?.error === "string" ? data.error : "Could not load teacher profile.";
         setStatus(msg, "error");
         return;
       }
-      if (!Array.isArray(data) || data.length === 0) {
-        setStatus("No teachers found. Seed the database or add a teacher first.", "error");
+      const teacher = data?.teacher;
+      if (!teacher?._id && !teacher?.id) {
+        setStatus("Could not load teacher profile.", "error");
         return;
       }
+      currentTeacher = {
+        id: String(teacher.id || teacher._id),
+        name: String(teacher.name || "Teacher"),
+      };
+      if (greetingEl) greetingEl.textContent = `Hi ${currentTeacher.name}`;
+      teacherSelect.innerHTML = "";
       const frag = document.createDocumentFragment();
-      for (const t of data) {
-        const id = t._id != null ? String(t._id) : "";
-        if (!id) continue;
-        const opt = document.createElement("option");
-        opt.value = id;
-        opt.textContent = t.name || "Teacher";
-        frag.appendChild(opt);
-      }
+      const opt = document.createElement("option");
+      opt.value = currentTeacher.id;
+      opt.textContent = currentTeacher.name;
+      frag.appendChild(opt);
       teacherSelect.appendChild(frag);
+      teacherSelect.value = currentTeacher.id;
+      teacherSelect.disabled = true;
       setStatus("");
     } catch {
-      setStatus("Network error loading teachers.", "error");
+      setStatus("Network error loading teacher profile.", "error");
     }
   }
 
@@ -131,9 +143,9 @@
         return;
       }
 
-      const teacher = teacherSelect?.value ?? "";
+      const teacher = currentTeacher?.id ?? "";
       if (!teacher) {
-        setStatus("Select an instructor.", "error");
+        setStatus("You must be logged in as a teacher.", "error");
         return;
       }
 
@@ -149,10 +161,10 @@
         const res = await fetch("/api/courses", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
           body: JSON.stringify({
             courseName,
             fee,
-            teacher,
             structure,
             description,
             thumbnailUrl,
@@ -186,5 +198,19 @@
     });
   }
 
-  loadTeachers();
+  if (logoutLink) {
+    logoutLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await fetch("/api/teacher/logout", {
+          method: "POST",
+          credentials: "same-origin",
+        });
+      } finally {
+        window.location.href = "/login.html";
+      }
+    });
+  }
+
+  loadCurrentTeacher();
 })();
